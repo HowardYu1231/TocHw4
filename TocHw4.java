@@ -18,7 +18,7 @@ public class TocHw4 {
 			 private int max_trade;
 			 private int min_trade;
 			 
-			 //«Øºc¤l ªì©l¤Æclass A_data
+			 //å»ºæ§‹å­ åˆå§‹åŒ–class A_data
 			 public A_data(String address){
 				 Address_content = address;
 				 max_distinct_month = 0;
@@ -36,7 +36,7 @@ public class TocHw4 {
 			 }
 			 
 			 
-			 //³]©w¥æ©öª÷ÃBªº³Ì¤j³Ì¤p­È
+			 //è¨­å®šäº¤æ˜“é‡‘é¡çš„æœ€å¤§æœ€å°å€¼
 			 public void set_trade(int value){
 				 if (max_trade == 0){
 					 max_trade = value;
@@ -99,6 +99,7 @@ public class TocHw4 {
 			 //the following code between (//---) referenced from the website below
 			 //http://robertvmp.pixnet.net/blog/post/26585200-java---%E8%AE%80%E7%B6%B2%E9%A0%81%E7%AF%84%E4%BE%8B-
 			 URL pageUrl = new URL(argv[0]);
+			 /*
 			 BufferedReader buffer_input_string = new BufferedReader(new InputStreamReader(pageUrl.openStream(), "UTF-8"));
 			 BufferedWriter buffer_output_string = new BufferedWriter(new FileWriter("JSON_HW4.json", false));
 			 String oneLine = null ;
@@ -108,8 +109,11 @@ public class TocHw4 {
 			 buffer_output_string.close();
 			 buffer_input_string.close(); 
 			 //---
+			 */
+			 //JSONArray obj = new JSONArray(new JSONTokener(new FileReader(new File("JSON_HW4.json"))));  
+			 BufferedReader in = new BufferedReader(new InputStreamReader(pageUrl.openStream(),"UTF-8"));
+			 JSONArray obj = new JSONArray(new JSONTokener(in));
 			 
-			 JSONArray obj = new JSONArray(new JSONTokener(new FileReader(new File("JSON_HW4.json"))));  
 			 
 			 boolean conti = true ;
 			 boolean write_address = false;
@@ -129,23 +133,23 @@ public class TocHw4 {
 					 //System.out.println(data_list.size());
 					 //System.out.printf("%d \n" , data_list.size());
 					 
-					 road_to_compare = ob.getString("¤g¦a°Ï¬q¦ì¸m©Î«Øª«°ÏªùµP");
-					 cut_value_road = road_to_compare.indexOf("¸ô");
-					 cut_value_alley = road_to_compare.indexOf("«Ñ");
-					 cut_value_street = road_to_compare.indexOf("µó");
+					 road_to_compare = ob.getString("åœŸåœ°å€æ®µä½ç½®æˆ–å»ºç‰©å€é–€ç‰Œ");
+					 cut_value_road = road_to_compare.indexOf("è·¯");
+					 cut_value_alley = road_to_compare.indexOf("å··");
+					 cut_value_street = road_to_compare.indexOf("è¡—");
 					 
 					 
 					 
 					 if (cut_value_road == -1 && cut_value_alley == -1 && cut_value_street == -1)
 						 continue;
 					 
-					 trade_money = ob.getInt("Á`»ù¤¸");
-					 trade_month = ob.getInt("¥æ©ö¦~¤ë");
+					 trade_money = ob.getInt("ç¸½åƒ¹å…ƒ");
+					 trade_month = ob.getInt("äº¤æ˜“å¹´æœˆ");
 					 
-					 if(cut_value_alley != -1 && cut_value_street == -1 && cut_value_road == -1)//¨Sµó¨S¸ô¦³«Ñ
+					 if(cut_value_alley != -1 && cut_value_street == -1 && cut_value_road == -1)//æ²’è¡—æ²’è·¯æœ‰å··
 					 {
 						 address = road_to_compare.substring(0 , cut_value_alley+1);
-						 //¤@¶}©lArry list¨SªF¦è
+						 //ä¸€é–‹å§‹Arry listæ²’æ±è¥¿
 						 if(data_list.size() == 0)
 						 {
 							 write_address = true;
@@ -153,7 +157,7 @@ public class TocHw4 {
 						 }
 						 else{
 						 for(int i = 0 ; i < data_list.size() ; i++){
-							 //¤£¬Ûµ¥=¨S¥X²{¹L ¤~¥[¨ìarraylist¤¤
+							 //ä¸ç›¸ç­‰=æ²’å‡ºç¾é æ‰åŠ åˆ°arraylistä¸­
 							 if (data_list.get(i).get_Address_content().equals(address) == true){
 								 index_array_list = i;
 								 i = data_list.size();
@@ -167,7 +171,7 @@ public class TocHw4 {
 						 }//end for
 						 }
 					 }
-					 else if(cut_value_street != -1 && cut_value_road == -1)//¨S¸ô¦³µó
+					 else if(cut_value_street != -1 && cut_value_road == -1)//æ²’è·¯æœ‰è¡—
 					 {
 						 address = road_to_compare.substring(0 , cut_value_street+1);
 						 if(data_list.size() == 0)
@@ -177,8 +181,8 @@ public class TocHw4 {
 						 }
 						 else{
 						 for(int i = 0 ; i < data_list.size() ; i++){
-							 //¤£¬Ûµ¥=¨S¥X²{¹L ¤~¥[¨ìarraylist¤¤
-							 //¥u­n¦³¥X²{¹L ´N¤£¼g¶iarraylist
+							 //ä¸ç›¸ç­‰=æ²’å‡ºç¾é æ‰åŠ åˆ°arraylistä¸­
+							 //åªè¦æœ‰å‡ºç¾é å°±ä¸å¯«é€²arraylist
 							 if (data_list.get(i).get_Address_content().equals(address) == true){
 								 write_address = false;
 								 index_array_list = i;
@@ -193,7 +197,7 @@ public class TocHw4 {
 						 }
 						 
 					 }
-					 else if(cut_value_road != -1)//¦³¸ô
+					 else if(cut_value_road != -1)//æœ‰è·¯
 					 {
 						 address = road_to_compare.substring(0 , cut_value_road+1);
 						 if(data_list.size() == 0)
@@ -203,7 +207,7 @@ public class TocHw4 {
 						 }
 						 else{
 						 for(int i = 0 ; i < data_list.size() ; i++){
-							 //¤£¬Ûµ¥=¨S¥X²{¹L ¤~¥[¨ìarraylist¤¤
+							 //ä¸ç›¸ç­‰=æ²’å‡ºç¾é æ‰åŠ åˆ°arraylistä¸­
 							 if (data_list.get(i).get_Address_content().equals(address) == true){
 								 index_array_list = i;
 								 i = data_list.size();
@@ -217,14 +221,14 @@ public class TocHw4 {
 						 }//end for
 						 }
 					 }
-					 else//¨Ò¥~
+					 else//ä¾‹å¤–
 					 {
 						 write_address = false;
 						 index_array_list = -1;
 					 }
 					 
 					 if(write_address == true){
-						 //¥[¨ìarrayListt
+						 //åŠ åˆ°arrayListt
 						 //A_data a = new A_data(address);
 						 data_list.add(new A_data(address));
 						 //System.out.printf("%d-- \t" , data_list.size());
@@ -269,10 +273,10 @@ public class TocHw4 {
 			 
 			 for (int i = 0 ; i<data_list.size() ;i++){
 				 if(data_list.get(i).get_max_distinct_month() == max_distinct_month){
-				 //if(data_list.get(i).get_Address_content().indexOf("©¾©ú«n¸ô") != -1){
+				 //if(data_list.get(i).get_Address_content().indexOf("å¿ æ˜å—è·¯") != -1){
 					 //System.out.printf("%d \t" , i);
 					 System.out.print(data_list.get(i).get_Address_content());
-					 System.out.printf(", ³Ì°ª¦¨¥æ»ù: "+"%d, " + "³Ì§C¦¨¥æ»ù: "+"%d" ,data_list.get(i).get_max_trade(), data_list.get(i).get_min_trade());
+					 System.out.printf(", æœ€é«˜æˆäº¤åƒ¹: "+"%d, " + "æœ€ä½æˆäº¤åƒ¹: "+"%d" ,data_list.get(i).get_max_trade(), data_list.get(i).get_min_trade());
 					 //System.out.printf("\t%d \t" , data_list.get(i).get_max_distinct_month());
 					 System.out.println("");
 				 }//enf if
